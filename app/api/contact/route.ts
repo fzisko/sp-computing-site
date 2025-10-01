@@ -14,8 +14,8 @@ export async function POST(req) {
 
   try {
     const data = await resend.emails.send({
-      from: process.env.RESEND_FROM || "noreply@sp-computing.be",
-      to: process.env.RESEND_TO || "contact@sp-computing.be",
+      from: process.env.RESEND_FROM || "onboarding@resend.dev",
+      to: process.env.RESEND_TO || "finox6040@gmail.com",
       subject: "Nouveau message depuis le formulaire",
       html: "<p>Hello depuis SP Computing</p>",
     });
