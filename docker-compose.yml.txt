@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  site:
+    build: .
+    container_name: spc_site
+    environment:
+      NODE_ENV: production
+      RESEND_API_KEY: ${RESEND_API_KEY}   # ta clé API sera ajoutée dans Portainer
+      RESEND_FROM: noreply@sp-computing.be
+      RESEND_TO: contact@sp-computing.be
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
