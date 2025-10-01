@@ -1,56 +1,30 @@
-import { type NextRequest, NextResponse } from "next/server"
-import { Resend } from "resend"
+import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+export async function POST(req) {
+  // Vérifie si la clé API est présente
+  if (!process.env.RESEND_API_KEY) {
+    console.warn("⚠️ RESEND_API_KEY manquante. L'email ne sera pas envoyé.");
+    return new Response(
+      JSON.stringify({ error: "RESEND_API_KEY manquante" }),
+      { status: 500 }
+    );
+  }
 
-export async function POST(request: NextRequest) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
+
   try {
-    const body = await request.json()
-    const { firstName, lastName, email, phone, company, service, message } = body
+    const data = await resend.emails.send({
+      from: process.env.RESEND_FROM || "noreply@sp-computing.be",
+      to: process.env.RESEND_TO || "contact@sp-computing.be",
+      subject: "Nouveau message depuis le formulaire",
+      html: "<p>Hello depuis SP Computing</p>",
+    });
 
-    if (!firstName || !lastName || !email || !message) {
-      return NextResponse.json(
-        { success: false, message: "Veuillez remplir tous les champs obligatoires." },
-        { status: 400 },
-      )
-    }
-
-    const emailContent = `
-Nouvelle demande de contact depuis le site SP Computing
-
-Informations du contact :
-- Nom : ${firstName} ${lastName}
-- Email : ${email}
-- Téléphone : ${phone || "Non renseigné"}
-- Entreprise : ${company || "Non renseignée"}
-- Service souhaité : ${service || "Non spécifié"}
-
-Message :
-${message}
-
----
-Cette demande a été envoyée depuis le formulaire de contact du site web.
-    `.trim()
-
-    const result = await resend.emails.send({
-      from: "onboarding@resend.dev",
-      to: ["finox6040@gmail.com"],
-      subject: `Nouvelle demande de contact - ${firstName} ${lastName}`,
-      text: emailContent,
-      replyTo: email,
-    })
-
-    if (result.error) {
-      console.error("Resend API error:", result.error)
-      return NextResponse.json({ success: false, message: "Erreur lors de l'envoi de l'email" }, { status: 500 })
-    }
-
-    return NextResponse.json({
-      success: true,
-      message: "Message envoyé avec succès",
-    })
+    return new Response(JSON.stringify({ success: true, data }), { status: 200 });
   } catch (error) {
-    console.error("Contact form error:", error)
-    return NextResponse.json({ success: false, message: "Erreur serveur" }, { status: 500 })
+    return new Response(
+      JSON.stringify({ error: error.message }),
+      { status: 500 }
+    );
   }
 }
