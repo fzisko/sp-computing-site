@@ -611,7 +611,7 @@ export default function ContactPage() {
           <div className="border-t border-emerald-500/20 mt-8 pt-8 text-center relative">
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-emerald-500/5 to-transparent"></div>
             <p className="text-slate-400 text-sm relative z-10">
-              © 2024 <span className="text-emerald-400 font-semibold">SP Computing</span>. Tous droits réservés. |
+              © 2025 <span className="text-emerald-400 font-semibold">SP Computing</span>. Tous droits réservés. |
               <span className="text-teal-400 font-medium"> Région Brabant Wallon</span>
             </p>
           </div>

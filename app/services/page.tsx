@@ -517,7 +517,7 @@ export default function ServicesPage() {
           <div className="border-t border-emerald-500/20 mt-6 sm:mt-8 pt-6 sm:pt-8 text-center relative">
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-emerald-500/5 to-transparent"></div>
             <p className="text-slate-400 text-xs sm:text-sm relative z-10 leading-relaxed">
-              © 2024 <span className="text-emerald-400 font-semibold">SP Computing</span>. Tous droits réservés.
+              © 2025 <span className="text-emerald-400 font-semibold">SP Computing</span>. Tous droits réservés.
               <br className="sm:hidden" />
               <span className="hidden sm:inline"> | </span>
               <span className="text-teal-400 font-medium">Région Brabant Wallon</span>
